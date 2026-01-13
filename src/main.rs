@@ -1,27 +1,28 @@
 mod player;
-mod role;
+mod roles;
 mod stats;
 
 use player::Player;
-use role::Role;
+use roles::Role;
 use stats::Stats;
+
 
 fn main() {
     // Player normal
     let mut person = Player::new(
-        Role::Person,
+        Role::person(),
         Stats::new(10, 5),
     );
 
     // Player Berserk
     let mut berserk = Player::new(
-        Role::Berserk,
+        Role::berserk(),
         Stats::new(15, 0),
     );
 
     // Player Undead
     let mut undead = Player::new(
-        Role::Undead,
+        Role::undead(),
         Stats::new(0, 8),
     );
 

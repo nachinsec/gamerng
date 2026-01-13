@@ -1,4 +1,4 @@
-use crate::role::Role;
+use crate::roles::Role;
 use crate::stats::Stats;
 
 pub struct Player {
