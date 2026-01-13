@@ -1,4 +1,5 @@
-use crate::player::Player;
+use crate::stats::Stats;
+
 #[derive(Clone, Copy)]
 pub enum Role {
     Person,
@@ -8,32 +9,32 @@ pub enum Role {
 
 impl Role {
 
-    pub fn is_defeated (&self, player: &Player) -> bool {
+    pub fn is_defeated (&self, stats: &Stats) -> bool {
         match self {
-            Role::Person => player.hp() == 0,
-            Role::Undead => player.energy() == 0,
-            Role::Berserk => player.hp() == 0
+            Role::Person => stats.hp() == 0,
+            Role::Undead => stats.energy() == 0,
+            Role::Berserk => stats.hp() == 0
         }
     }
 
-    pub fn can_act (&self, player: &Player) -> bool {
+    pub fn can_act (&self, stats: &Stats) -> bool {
         match self {
-            Role::Person => player.energy() > 0,
-            Role::Undead => player.energy() > 0,
+            Role::Person => stats.energy() > 0,
+            Role::Undead => stats.energy() > 0,
             Role::Berserk => true
         }
     }
 
-    pub fn take_dmg (&self, player: &mut Player, dmg: u32) {
+    pub fn take_dmg (&self, stats: &mut Stats, dmg: u32) {
         match self {
-            Role::Person | Role::Berserk => player.reduce_hp(dmg),
+            Role::Person | Role::Berserk => stats.reduce_hp(dmg),
             Role::Undead => {}
         }
     }
 
-    pub fn spend_energy (&self, player: &mut Player, energy: u32) {
+    pub fn spend_energy (&self, stats: &mut Stats, energy: u32) {
         match self {
-            Role::Person | Role::Undead => player.reduce_energy(energy),
+            Role::Person | Role::Undead => stats.reduce_energy(energy),
             Role::Berserk => {}
         }
     }
