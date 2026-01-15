@@ -1,5 +1,6 @@
+#[derive(Debug)]
 pub struct Berserk {
-    rage: u32
+    rage: u32,
 }
 impl Berserk {
     pub fn new() -> Self {

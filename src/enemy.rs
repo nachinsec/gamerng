@@ -1,14 +1,11 @@
 pub struct Enemy {
     hp: u32,
-    dmg: u32
+    dmg: u32,
 }
 
 impl Enemy {
-    pub fn new (hp: u32, dmg: u32) -> Enemy {
-        Enemy {
-            hp,
-            dmg
-        }
+    pub fn new(hp: u32, dmg: u32) -> Enemy {
+        Enemy { hp, dmg }
     }
 
     pub fn is_defeated(&self) -> bool {

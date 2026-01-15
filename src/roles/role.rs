@@ -1,8 +1,8 @@
-use crate::stats::Stats;
 use super::berserk::Berserk;
 use super::person::Person;
 use super::undead::Undead;
-
+use crate::stats::Stats;
+#[derive(Debug)]
 pub enum Role {
     Person(Person),
     Undead(Undead),
