@@ -1,3 +1,5 @@
+mod action;
+mod enemy;
 mod player;
 mod roles;
 mod stats;
@@ -6,25 +8,15 @@ use player::Player;
 use roles::Role;
 use stats::Stats;
 
-
 fn main() {
     // Player normal
-    let mut person = Player::new(
-        Role::person(),
-        Stats::new(10, 5),
-    );
+    let mut person = Player::new(Role::person(), Stats::new(10, 5));
 
     // Player Berserk
-    let mut berserk = Player::new(
-        Role::berserk(),
-        Stats::new(15, 0),
-    );
+    let mut berserk = Player::new(Role::berserk(), Stats::new(15, 0));
 
     // Player Undead
-    let mut undead = Player::new(
-        Role::undead(),
-        Stats::new(0, 8),
-    );
+    let mut undead = Player::new(Role::undead(), Stats::new(0, 8));
 
     println!("== Estado inicial ==");
     print_player("Person", &person);
@@ -57,12 +49,7 @@ fn main() {
 
 fn print_player(name: &str, player: &Player) {
     let stats = player.stats();
-    println!(
-        "{} -> HP: {}, Energy: {}",
-        name,
-        stats.hp(),
-        stats.energy()
-    );
+    println!("{} -> HP: {}, Energy: {}", name, stats.hp(), stats.energy());
 }
 
 fn check_status(name: &str, player: &Player) {
