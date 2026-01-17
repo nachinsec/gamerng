@@ -1,7 +1,10 @@
 use super::berserk::Berserk;
 use super::person::Person;
 use super::undead::Undead;
-use crate::stats::{Stats, VitalResource};
+use crate::{
+    dice::Dice,
+    stats::{Stats, VitalResource},
+};
 #[derive(Debug)]
 pub enum Role {
     Person(Person),
@@ -65,6 +68,20 @@ impl Role {
                 stats.reduce_energy(energy);
             }
             Role::Berserk(_) => {}
+        }
+    }
+
+    pub fn attack(&mut self) -> u32 {
+        match self {
+            Role::Person(_) => 5 + Dice::d6(),
+            Role::Berserk(b) => {
+                if b.rage() > 5 {
+                    b.rage() + Dice::d6()
+                } else {
+                    5 + Dice::d6()
+                }
+            }
+            Role::Undead(_) => 5 + Dice::d6(),
         }
     }
 }

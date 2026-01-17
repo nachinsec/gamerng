@@ -1,11 +1,11 @@
 #![allow(dead_code)] // TODO: delete warns
 mod action;
 mod combat;
+mod dice;
 mod enemy;
 mod player;
 mod roles;
 mod stats;
-
 use crate::enemy::Enemy;
 use combat::Combat;
 use player::Player;
@@ -14,7 +14,7 @@ use std::io;
 fn main() {
     let role = choose_role();
     let player = Player::new(role);
-    let enemy = Enemy::new(15, 3);
+    let enemy = Enemy::new(35, 3);
 
     let combat = Combat::new(player, enemy);
     let (result, player) = combat.run();

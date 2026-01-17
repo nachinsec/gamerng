@@ -31,4 +31,8 @@ impl Player {
     pub fn spend_energy(&mut self, energy: u32) {
         self.role.spend_energy(&mut self.stats, energy);
     }
+
+    pub fn attack(&mut self) -> u32 {
+        self.role.attack()
+    }
 }

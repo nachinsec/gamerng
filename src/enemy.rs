@@ -1,3 +1,5 @@
+use crate::dice::Dice;
+
 pub struct Enemy {
     hp: u32,
     dmg: u32,
@@ -17,7 +19,7 @@ impl Enemy {
     }
 
     pub fn attack(&self) -> u32 {
-        self.dmg
+        Dice::d4() + self.dmg
     }
 
     pub fn hp(&self) -> u32 {

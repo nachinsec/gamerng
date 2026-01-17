@@ -29,10 +29,10 @@ impl Combat {
             match action {
                 Action::Attack => {
                     print!("Player choose Attack!");
-                    self.enemy.take_dmg(5);
+                    self.enemy.take_dmg(self.player.attack());
                     println!(
-                        "\n Player HP: {} | Enemy HP: {}",
-                        self.player.stats().vital_value(),
+                        "\n Player Status: {:?} | Enemy HP: {}",
+                        self.player.role(),
                         self.enemy.hp()
                     );
                     if self.enemy.is_defeated() {
