@@ -1,22 +1,47 @@
 #[derive(Debug)]
+
+pub enum VitalResource {
+    Health(u32),
+    Battery(u32),
+}
+impl VitalResource {
+    pub fn value(&self) -> u32 {
+        match self {
+            VitalResource::Health(v) => *v,
+            VitalResource::Battery(v) => *v,
+        }
+    }
+
+    pub fn reduce(&mut self, amount: u32) {
+        match self {
+            VitalResource::Health(v) => *v = v.saturating_sub(amount),
+            VitalResource::Battery(v) => *v = v.saturating_sub(amount),
+        }
+    }
+}
+#[derive(Debug)]
 pub struct Stats {
-    hp: u32,
+    vital: VitalResource,
     energy: u32,
 }
 
 impl Stats {
-    pub fn new(hp: u32, energy: u32) -> Stats {
-        Stats { hp, energy }
+    pub fn new(vital: VitalResource, energy: u32) -> Stats {
+        Stats { vital, energy }
     }
-    pub fn hp(&self) -> u32 {
-        self.hp
+    pub fn vital(&self) -> &VitalResource {
+        &self.vital
+    }
+
+    pub fn vital_value(&self) -> u32 {
+        self.vital.value()
     }
     pub fn energy(&self) -> u32 {
         self.energy
     }
 
-    pub fn reduce_hp(&mut self, hp: u32) {
-        self.hp = self.hp.saturating_sub(hp) // saturating_sub 10-20 = 0
+    pub fn reduce_vital(&mut self, amount: u32) {
+        self.vital.reduce(amount)
     }
 
     pub fn reduce_energy(&mut self, energy: u32) {

@@ -1,7 +1,7 @@
 use super::berserk::Berserk;
 use super::person::Person;
 use super::undead::Undead;
-use crate::stats::Stats;
+use crate::stats::{Stats, VitalResource};
 #[derive(Debug)]
 pub enum Role {
     Person(Person),
@@ -22,11 +22,19 @@ impl Role {
         Role::Berserk(Berserk::new())
     }
 
+    pub fn def_stats(&self) -> Stats {
+        match self {
+            Role::Person(_) => Stats::new(VitalResource::Health(20), 10),
+            Role::Berserk(_) => Stats::new(VitalResource::Health(30), 0),
+            Role::Undead(_) => Stats::new(VitalResource::Health(0), 30),
+            //Role::Robot(_) => Stats::new(VitalResource::Battery(20), 10),
+        }
+    }
+
     pub fn is_defeated(&self, stats: &Stats) -> bool {
         match self {
-            Role::Person(_) => stats.hp() == 0,
             Role::Undead(_) => stats.energy() == 0,
-            Role::Berserk(_) => stats.hp() == 0,
+            _ => stats.vital_value() == 0,
         }
     }
 
@@ -41,11 +49,11 @@ impl Role {
     pub fn take_dmg(&mut self, stats: &mut Stats, dmg: u32) {
         match self {
             Role::Person(_) => {
-                stats.reduce_hp(dmg);
+                stats.reduce_vital(dmg);
             }
             Role::Undead(_) => {}
             Role::Berserk(berserk) => {
-                stats.reduce_hp(dmg);
+                stats.reduce_vital(dmg);
                 berserk.gain_rage(dmg);
             }
         }

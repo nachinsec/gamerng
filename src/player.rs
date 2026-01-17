@@ -15,7 +15,8 @@ impl Player {
         &self.stats
     }
 
-    pub fn new(role: Role, stats: Stats) -> Player {
+    pub fn new(role: Role) -> Player {
+        let stats = role.def_stats();
         Player { role, stats }
     }
 

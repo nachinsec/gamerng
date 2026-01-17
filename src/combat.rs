@@ -32,7 +32,7 @@ impl Combat {
                     self.enemy.take_dmg(5);
                     println!(
                         "\n Player HP: {} | Enemy HP: {}",
-                        self.player.stats().hp(),
+                        self.player.stats().vital_value(),
                         self.enemy.hp()
                     );
                     if self.enemy.is_defeated() {
