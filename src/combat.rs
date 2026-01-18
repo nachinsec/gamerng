@@ -8,61 +8,59 @@ pub enum CombatState {
     Fighting,
 }
 pub struct Combat {
-    player: Player,
     enemy: Enemy,
     combat_state: CombatState,
 }
 
 impl Combat {
-    pub fn new(player: Player, enemy: Enemy) -> Combat {
+    pub fn new(enemy: Enemy) -> Combat {
         Combat {
-            player,
             enemy,
             combat_state: CombatState::Fighting,
         }
     }
 
-    pub fn run(mut self) -> (CombatState, Player) {
+    pub fn run(mut self, player: &mut Player) -> CombatState {
         while self.combat_state == CombatState::Fighting {
             let action = get_player_action();
 
             match action {
                 Action::Attack => {
                     print!("Player choose Attack!");
-                    self.enemy.take_dmg(self.player.attack());
+                    self.enemy.take_dmg(player.attack());
                     println!(
                         "\n Player Status: {:?} | Enemy HP: {}",
-                        self.player.role(),
+                        player.role(),
                         self.enemy.hp()
                     );
                     if self.enemy.is_defeated() {
                         self.combat_state = CombatState::Win;
                         break;
                     }
-                    self.player.take_dmg(self.enemy.attack());
-                    if self.player.is_defeated() {
+                    player.take_dmg(self.enemy.attack());
+                    if player.is_defeated() {
                         self.combat_state = CombatState::Lose;
                         break;
                     }
                 }
                 Action::Defend => {
-                    self.player.take_dmg(self.enemy.attack() / 2);
-                    if self.player.is_defeated() {
+                    player.take_dmg(self.enemy.attack() / 2);
+                    if player.is_defeated() {
                         self.combat_state = CombatState::Lose;
                         break;
                     }
                 }
                 Action::Rest => {
                     // TODO heal
-                    self.player.take_dmg(self.enemy.attack());
-                    if self.player.is_defeated() {
+                    player.take_dmg(self.enemy.attack());
+                    if player.is_defeated() {
                         self.combat_state = CombatState::Lose;
                         break;
                     }
                 }
             }
         }
-        (self.combat_state, self.player)
+        self.combat_state
     }
 }
 

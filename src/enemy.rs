@@ -10,6 +10,13 @@ impl Enemy {
         Enemy { hp, dmg }
     }
 
+    pub fn spawn(floor: u32) -> Enemy {
+        Enemy {
+            hp: 10 + floor * 2,
+            dmg: floor / 2,
+        }
+    }
+
     pub fn is_defeated(&self) -> bool {
         self.hp == 0
     }

@@ -3,24 +3,21 @@ mod action;
 mod combat;
 mod dice;
 mod enemy;
+mod game;
 mod player;
 mod roles;
 mod stats;
-use crate::enemy::Enemy;
-use combat::Combat;
+use crate::game::Game;
 use player::Player;
 use roles::Role;
 use std::io;
 fn main() {
     let role = choose_role();
     let player = Player::new(role);
-    let enemy = Enemy::new(35, 3);
 
-    let combat = Combat::new(player, enemy);
-    let (result, player) = combat.run();
+    let mut game = Game::new(player, 1);
 
-    println!("Resultado {:?}", result);
-    println!("Player: {:?}", player);
+    game.play();
 }
 
 fn choose_role() -> Role {
