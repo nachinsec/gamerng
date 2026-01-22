@@ -1,15 +1,13 @@
 #![allow(dead_code)] // TODO: delete warns
-mod action;
+
 mod combat;
 mod dice;
-mod enemy;
 mod game;
-mod player;
-mod roles;
-mod stats;
+mod models;
+
 use crate::game::Game;
-use player::Player;
-use roles::Role;
+use models::player::Player;
+use models::roles::Role;
 use std::io;
 fn main() {
     let role = choose_role();

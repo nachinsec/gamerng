@@ -1,6 +1,9 @@
 use std::io;
 
-use crate::{action::Action, enemy::Enemy, player::Player};
+use crate::models::action::Action;
+use crate::models::enemy::Enemy;
+use crate::models::player::Player;
+
 #[derive(PartialEq, Debug)]
 pub enum CombatState {
     Win,

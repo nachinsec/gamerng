@@ -1,7 +1,7 @@
 use crate::{
     combat::{Combat, CombatState},
-    enemy::Enemy,
-    player::Player,
+    models::enemy::Enemy,
+    models::player::Player,
 };
 
 pub struct Game {

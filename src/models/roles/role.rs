@@ -3,7 +3,7 @@ use super::person::Person;
 use super::undead::Undead;
 use crate::{
     dice::Dice,
-    stats::{Stats, VitalResource},
+    models::stats::{Stats, VitalResource},
 };
 #[derive(Debug)]
 pub enum Role {
