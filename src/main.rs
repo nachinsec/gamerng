@@ -6,12 +6,28 @@ mod game;
 mod models;
 
 use crate::game::Game;
+use models::events::{Effect, Rarity, Trigger};
+use models::perk::Perk;
 use models::player::Player;
 use models::roles::Role;
 use std::io;
+
 fn main() {
     let role = choose_role();
-    let player = Player::new(role);
+    let mut player = Player::new(role);
+
+    // Test perk: Vampirism - heals 3 HP on attack
+    let vampirism = Perk::new(
+        "Vampirism",
+        "Heal 3 HP when attacking",
+        Rarity::Rare,
+        Trigger::OnAttack,
+        Effect::Heal(3),
+    );
+    player.add_perk(vampirism);
+
+    println!("Player starts with perk: Vampirism (Heal 3 on attack)");
+    println!("Initial HP: {}", player.stats().vital_value());
 
     let mut game = Game::new(player, 1);
 

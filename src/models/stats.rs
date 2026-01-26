@@ -18,6 +18,13 @@ impl VitalResource {
             VitalResource::Battery(v) => *v = v.saturating_sub(amount),
         }
     }
+
+    pub fn increase(&mut self, amount: u32) {
+        match self {
+            VitalResource::Health(v) => *v = v.saturating_add(amount),
+            VitalResource::Battery(v) => *v = v.saturating_add(amount),
+        }
+    }
 }
 #[derive(Debug)]
 pub struct Stats {
@@ -46,5 +53,13 @@ impl Stats {
 
     pub fn reduce_energy(&mut self, energy: u32) {
         self.energy = self.energy.saturating_sub(energy)
+    }
+
+    pub fn increase_vital(&mut self, amount: u32) {
+        self.vital.increase(amount)
+    }
+
+    pub fn increase_energy(&mut self, energy: u32) {
+        self.energy = self.energy.saturating_add(energy)
     }
 }

@@ -21,7 +21,7 @@ pub enum Rarity {
     Legendary,
 }
 
-fn process_trigger(perks: &[Perk], stats: &mut Stats, trigger: Trigger) {
+pub fn process_trigger(perks: &[Perk], stats: &mut Stats, trigger: Trigger) {
     for perk in perks {
         if perk.trigger == trigger {
             apply_effect(&perk.effect, stats);
@@ -30,5 +30,9 @@ fn process_trigger(perks: &[Perk], stats: &mut Stats, trigger: Trigger) {
 }
 
 fn apply_effect(effect: &Effect, stats: &mut Stats) {
-    println!("test")
+    match effect {
+        Effect::Heal(n) => stats.increase_vital(*n),
+        Effect::Buff(_) => {}
+        Effect::Reflect(_) => {}
+    }
 }

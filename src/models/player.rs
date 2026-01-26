@@ -1,4 +1,4 @@
-use crate::models::events::Trigger;
+use crate::models::events::{Trigger, process_trigger};
 use crate::models::perk::Perk;
 use crate::models::roles::Role;
 use crate::models::stats::Stats;
@@ -54,10 +54,6 @@ impl Player {
     }
 
     fn trigger_event(&mut self, trigger: Trigger) {
-        for perk in &self.perks {
-            if perk.trigger == trigger {
-                print!("trigger!!")
-            }
-        }
+        process_trigger(&self.perks, &mut self.stats, trigger);
     }
 }

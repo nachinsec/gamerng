@@ -36,6 +36,7 @@ impl Game {
 
             if result == CombatState::Win {
                 println!("🎉 ¡Enemigo derrotado! Avanzas al siguiente nivel...");
+                println!("Vida: {:?}", self.player.stats());
                 self.floor += 1;
             }
         }
